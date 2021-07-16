@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-def about(request):
-    return HttpResponse('about page')
+def customers(request):
+    return render(request,'accounts/customers.html')
 
-def contact(request):
-    return HttpResponse('contact page')
+def products(request):
+   return render(request,'accounts/products.html')
 
 def dashboard(request):
-    return HttpResponse('dashboard page')
+   return render(request,'accounts/dashboard.html')
