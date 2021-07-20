@@ -1,8 +1,15 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from accounts.models import *
-def customers(request):
-    return render(request,'accounts/customers.html')
+def customers(request,id):
+   customer=Customer.objects.get(id=id)
+   orders=customer.order_set.all()
+   order_count=orders.count()
+   return render(request,'accounts/customers.html',{
+      'customer':customer,
+      'orders':orders,
+      'order_count':order_count
+   })
 
 def products(request):
    products=Product.objects.all()
