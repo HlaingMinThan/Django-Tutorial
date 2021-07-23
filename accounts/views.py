@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from accounts.models import *
+from accounts.forms import *
 def customers(request,id):
    customer=Customer.objects.get(id=id)
    orders=customer.order_set.all()
@@ -29,4 +30,17 @@ def dashboard(request):
       'total':total,
       'delivered':delivered,
       'pending':pending
+   })
+
+def orderCreate(request):
+   form=OrderForm()
+   if request.method=="POST":
+    
+      form=OrderForm(request.POST)
+      if form.is_valid():
+         form.save();
+         return redirect('/');
+   
+   return render(request,'accounts/order_form.html',{
+      'form':form
    })
