@@ -1,0 +1,9 @@
+{% extends 'accounts/master.html' %}
+{% block content %}
+<p>Are u sure want to delete that {{order}}?</p>
+<form action="" method="POST">
+    {% csrf_token %}
+    <a href="{% url 'dashboard' %}">cancel</a>
+    <input type="submit" value="delete">
+</form>
+{% endblock content %}

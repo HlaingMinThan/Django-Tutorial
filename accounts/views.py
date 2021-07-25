@@ -58,3 +58,13 @@ def orderUpdate(request,orderId):
    return render(request,'accounts/order_form.html',{
       'form':form
    })
+
+def orderDelete(request,orderId):
+   order=Order.objects.get(id=orderId);
+   if request.method=="POST":
+      order.delete();
+      return redirect('/');
+  
+   return render(request,'accounts/order_delete.html',{
+      'order':order
+   })
