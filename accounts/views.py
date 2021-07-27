@@ -36,7 +36,7 @@ def dashboard(request):
 def orderCreate(request,customerId):
    OrderFormSet=inlineformset_factory(Customer,Order,fields=('product','status'),extra=10)
    customer=Customer.objects.get(id=customerId);
-   formset=OrderFormSet(instance=customer)
+   formset=OrderFormSet(instance=customer,queryset=Order.objects.none())
    if request.method=="POST":
     
       formset=OrderFormSet(request.POST,instance=customer)
