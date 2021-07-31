@@ -1,9 +1,11 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.forms import inlineformset_factory
+from accounts import forms
 from accounts.models import *
 from accounts.forms import *
 from .filters import *
+from django.contrib.auth.forms import UserCreationForm
 def customers(request,id):
    customer=Customer.objects.get(id=id)
    orders=customer.order_set.all()
@@ -75,3 +77,14 @@ def orderDelete(request,orderId):
    return render(request,'accounts/order_delete.html',{
       'order':order
    })
+
+def register(request):
+   form=RegisterForm()
+   if request.method=="POST":
+       form=RegisterForm(request.POST)
+       if form.is_valid():
+          form.save();
+          return redirect('/')
+   return render(request,'accounts/register.html',{
+      'form':form
+   });

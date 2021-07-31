@@ -1,0 +1,16 @@
+{% extends 'accounts/master.html' %}
+{% load widget_tweaks %}
+{% block content %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        {% for input in form %}
+            <div class="mb-3">
+                {{input.label}}
+                {{input|add_class:'form-control'}}
+                <div class="text-danger">{{input.errors}}</div>
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+{% endblock content %}
