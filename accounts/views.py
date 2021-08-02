@@ -5,7 +5,8 @@ from accounts import forms
 from accounts.models import *
 from accounts.forms import *
 from .filters import *
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate,login
+from django.contrib import messages
 def customers(request,id):
    customer=Customer.objects.get(id=id)
    orders=customer.order_set.all()
@@ -88,3 +89,17 @@ def register(request):
    return render(request,'accounts/register.html',{
       'form':form
    });
+
+def userLogin(request):
+   if request.method=="POST":
+      username=request.POST['username']
+      password=request.POST['password']
+
+      user=authenticate(request,username=username,password=password)
+      if user is not None :
+         login(request,user)
+         return redirect('/')
+      else :
+         messages.error(request,'username and password is incorrect')
+         return redirect('/login')
+   return render(request,'accounts/login.html')
