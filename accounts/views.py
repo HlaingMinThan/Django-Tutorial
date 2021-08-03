@@ -5,7 +5,7 @@ from accounts import forms
 from accounts.models import *
 from accounts.forms import *
 from .filters import *
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login, logout
 from django.contrib import messages
 def customers(request,id):
    customer=Customer.objects.get(id=id)
@@ -103,3 +103,7 @@ def userLogin(request):
          messages.error(request,'username and password is incorrect')
          return redirect('/login')
    return render(request,'accounts/login.html')
+
+def userLogout(request):
+   logout(request)
+   return redirect('/login')
