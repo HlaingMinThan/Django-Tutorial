@@ -1,4 +1,4 @@
-from accounts.decorators import authenticated_user
+from accounts.decorators import authenticated_user,admin_only
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.forms import inlineformset_factory
@@ -9,6 +9,10 @@ from .filters import *
 from django.contrib.auth import authenticate,login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+
+def customer_profile(request):
+   return render(request,'accounts/customer_profile.html')
+
 @login_required(login_url='/login')
 def customers(request,id):
    customer=Customer.objects.get(id=id)
@@ -31,6 +35,7 @@ def products(request):
    })
 
 @login_required(login_url='/login')
+@admin_only
 def dashboard(request):
    customers=Customer.objects.all()
    orders=Order.objects.all()
