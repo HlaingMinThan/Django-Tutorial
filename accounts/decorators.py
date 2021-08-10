@@ -1,5 +1,5 @@
+from django.http.response import HttpResponse
 from django.shortcuts import redirect
-
 
 def authenticated_user(view_fun):
     def wrapper(request):
@@ -18,3 +18,14 @@ def admin_only(view_fun):
             return redirect('/customer_profile')
     return wrapper
         
+
+def allowed_roles(roles=[]):
+    def decorator(view_fun):
+        def wrapper(request,*args, **kwargs):
+            if request.user.groups.first().name in roles:
+                return view_fun(request,*args, **kwargs)#orderCreate
+            else:
+                return HttpResponse('you are not authorized');
+        return wrapper
+    return decorator
+    
