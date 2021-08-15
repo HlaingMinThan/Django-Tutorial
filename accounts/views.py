@@ -14,7 +14,16 @@ from django.contrib.auth.decorators import login_required
 @login_required(login_url='/login')
 @allowed_roles(roles=['customer'])
 def customer_profile(request):
-   return render(request,'accounts/customer_profile.html')
+   orders=request.user.customer.order_set.all()
+   total=orders.count();
+   delivered= orders.filter(status="delivered").count()
+   pending= orders.filter(status="pending").count()
+   return render(request,'accounts/customer_profile.html',{
+      'orders':orders,
+      'total':total,
+      'delivered':delivered,
+      'pending':pending
+   })
 
 @login_required(login_url='/login')
 @allowed_roles(roles=['admin'])
