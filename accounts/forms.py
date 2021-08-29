@@ -8,6 +8,11 @@ class OrderForm(ModelForm):
         model=Order
         fields='__all__'
 
+class CustomerProfile(ModelForm):
+    class Meta:
+        model=Customer
+        fields=['email','phone','profile_pic']
+
 class RegisterForm(UserCreationForm):
     class Meta:
         model=User
