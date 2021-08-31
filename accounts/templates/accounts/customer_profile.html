@@ -51,16 +51,12 @@
 					<th>Product</th>
 					<th>Date Orderd</th>
 					<th>Status</th>
-					<th>Update</th>
-					<th>Remove</th>
 				</tr>
 				{% for order in orders %}
 				<tr>
 					<td>{{order.product.name}}</td>
 					<td>{{order.created_at}}</td>
 					<td>{{order.status}}</td>
-					<td> <a href="{% url 'order.update' order.id %}" class="btn btn-success">Update</a> </td>
-					<td> <a href="{% url 'order.delete' order.id %}" class="btn btn-danger">Remove</a> </td>
 				</tr>
 				{% endfor %}
 			</table>

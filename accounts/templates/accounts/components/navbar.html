@@ -5,16 +5,20 @@
         <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-        {% if request.user.is_authenticated %}
         <ul class="navbar-nav">
+        {% if request.user.is_staff %}
             <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{% url 'dashboard' %}">Dashboard</a>
             </li>
             <li class="nav-item">
             <a class="nav-link" href="{% url 'products' %}">Products</a>
             </li>
-        </ul>
+        {% else %}
+             <li class="nav-item">
+            <a class="nav-link" href="{% url 'customers.customer_profile' %}">Profile</a>
+            </li>
         {% endif %}
+        </ul>
         </div>
         {% if request.user.is_authenticated %}
         <div class="text-white">
